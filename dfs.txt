@@ -1,0 +1,53 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+    vector <int> adj[10];
+    bool visited[10];
+
+
+ bool DFS(int source, int dest) {
+        visited[source] = true;
+        if(source == dest){
+            return true;
+        }
+        for(int i = 0;i < adj[source].size();i++)    {
+         if(visited[adj[source][i]] == false){
+             bool flag;
+             flag = DFS(adj[source][i],dest);
+             if(flag)
+                return flag;
+         }
+        }
+    }
+
+ void init() {
+        for(int i = 0;i < 10;++i)
+         visited[i] = false;
+    }
+
+int main(){
+    bool flag;
+    int nodes, edges, x, y, s , d;
+    cin >> nodes;
+    cin >> edges;
+
+    for(int i = 0;i < edges;i++) {
+         cin >> x >> y;
+         adj[x].push_back(y);
+         adj[y].push_back(x);
+        }
+    cin >> s;
+    cin >> d;
+
+            bool test =  DFS(s,d);
+        if(test){
+            cout<< "Found";
+        }
+        else{
+            cout<< "Not found";
+        }
+
+
+}
